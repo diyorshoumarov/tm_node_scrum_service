@@ -1,0 +1,54 @@
+syntax="proto3";
+
+package scrum_service;
+option go_package="genproto/scrum_service";
+
+import "priority_history_service.proto";
+import "developer_service.proto";
+import "google/protobuf/empty.proto";
+
+service DepartmentService {
+    rpc Create(CreateDepartmentRequest) returns (Department) {}
+    rpc GetById(DepartmentPrimaryKey) returns (Department) {}
+    rpc GetByIdFull(DepartmentPrimaryKey) returns (DepartmentFull) {}
+    rpc GetByPriorityHistoryId(PriorityHistoryPrimaryKey) returns (DepartmentList) {}
+    rpc Update(UpdateDepartmentRequest) returns (Department) {}
+    rpc Delete(DepartmentPrimaryKey) returns (google.protobuf.Empty) {}
+}
+
+message Department {
+    string id = 1;
+    string worklaod_id = 2;
+    string project_id = 3;
+    string role_id = 4;
+    int32 given = 5;
+}
+
+message CreateDepartmentRequest {
+    string worklaod_id = 2;
+    string project_id = 3;
+    string role_id = 4;
+    int32 given = 5;
+}
+
+message UpdateDepartmentRequest {
+    string id = 1;
+    int32 given = 5;
+}
+
+message DepartmentPrimaryKey {
+    string id = 1;
+}
+
+message DepartmentList {
+    repeated Department department_list = 1;
+}
+
+message DepartmentFull {
+    string id = 1;
+    string worklaod_id = 2;
+    string project_id = 3;
+    string role_id = 4;
+    int32 given = 5;
+    repeated DeveloperFull developers = 6;
+}

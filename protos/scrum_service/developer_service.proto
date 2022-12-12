@@ -1,0 +1,41 @@
+syntax="proto3";
+
+package scrum_service;
+option go_package="genproto/scrum_service";
+
+import "department_service.proto";
+import "google/protobuf/empty.proto";
+
+service DeveloperService {
+    rpc Create(CreateDeveloperRequest) returns (Developer) {} 
+    rpc GetById(DeveloperPrimaryKey) returns (Developer) {} 
+    rpc GetByDepartmentId(DepartmentPrimaryKey) returns (DeveloperFull) {} 
+    rpc Update(UpdateDeveloperRequest) returns (Developer) {} 
+    rpc Delete(DeveloperPrimaryKey) returns (google.protobuf.Empty) {} 
+}
+
+message Developer {
+    string id = 1;
+    string department_id = 2;
+    string user_id = 3;
+    int32 given = 4;
+}
+
+message CreateDeveloperRequest {
+    string department_id = 1;
+    string user_id = 2;
+    int32 given = 3; 
+}
+
+message UpdateDeveloperRequest {
+    string id = 1;
+    int32 given = 3;
+}
+
+message DeveloperPrimaryKey {
+    string id = 1;
+}
+
+message DeveloperFull {
+    repeated Developer developers = 1;
+}

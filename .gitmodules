@@ -1,0 +1,3 @@
+[submodule "tm_protos"]
+	path = tm_protos
+	url = git@github.com:diyorshoumarov/tm_protos.git

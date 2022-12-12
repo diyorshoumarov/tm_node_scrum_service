@@ -1,0 +1,53 @@
+syntax="proto3";
+
+package scrum_service;
+option go_package="genproto/scrum_service";
+
+import "priority_history_service.proto";
+import "google/protobuf/empty.proto";
+
+service WorkloadService {
+    rpc Create(CreateWorkloadRequest) returns (Workload) {}
+    rpc GetById(WorkloadPrimaryKey) returns (Workload) {}
+    rpc GetByIdFull(WorkloadPrimaryKey) returns (WorkloadFull) {}
+    rpc GetList(GetWorkloadListRequest) returns (WorkloadList) {}
+    rpc Update(UpdateWorkloadRequest) returns (Workload) {}
+    rpc Delete(WorkloadPrimaryKey) returns (google.protobuf.Empty) {}
+}
+
+message Workload {
+    string id = 1;
+    string from_date = 2;
+    string to_date = 3;
+}
+
+message CreateWorkloadRequest {
+    string from_date = 1;
+    string to_date = 2;
+}
+
+message UpdateWorkloadRequest {
+    string id = 1;
+    string from_date = 2;
+    string to_date = 3;
+}
+
+message GetWorkloadListRequest {
+    int32 offset = 1;
+    int32 limit = 2;
+}
+
+message WorkloadPrimaryKey {
+    string id = 1;
+}
+
+message WorkloadList {
+    repeated Workload workload_list = 1;
+}
+
+message WorkloadFull {
+    string id = 1;
+    string from_date = 2;
+    string to_date = 3;
+    repeated PriorityHistoryFull priority_histories = 4;
+}

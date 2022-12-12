@@ -1,0 +1,50 @@
+syntax="proto3";
+
+package scrum_service;
+option go_package="genproto/scrum_service";
+
+import "workload_service.proto";
+import "department_service.proto";
+import "google/protobuf/empty.proto";
+
+service PriorityHistoryService {
+    rpc Create(CreatePriorityHistoryRequest) returns (PriorityHistory) {}
+    rpc GetById(PriorityHistoryPrimaryKey) returns (PriorityHistory) {}
+    rpc GetByIdFull(PriorityHistoryPrimaryKey) returns (PriorityHistoryFull) {}
+    rpc GetByWorkloadId(WorkloadPrimaryKey) returns (PriorityHistoryList) {}
+    rpc Update(UpdatePriorityHistoryRequest) returns (PriorityHistory) {}
+    rpc Delete(PriorityHistoryPrimaryKey) returns (google.protobuf.Empty) {}
+}
+
+message PriorityHistory {
+    string id = 1;
+    string workload_id = 2;
+    string project_id = 3;
+    int32 order_number = 4;
+}
+
+message CreatePriorityHistoryRequest {
+    string workload_id = 1;
+    string project_id = 2;
+}
+
+message UpdatePriorityHistoryRequest {
+    string id = 1;
+    int32 order_number = 2;
+}
+
+message PriorityHistoryPrimaryKey {
+    string id = 1;
+}
+
+message PriorityHistoryList {
+    repeated PriorityHistory priority_history_list = 1;
+}
+
+message PriorityHistoryFull {
+    string id = 1;
+    string workload_id = 2;
+    string project_id = 3;
+    int32 order_number = 4;
+    repeated DepartmentFull departments = 5;
+}

@@ -1,0 +1,9 @@
+syntax="proto3";
+
+package scrum_service;
+option go_package="genproto/scrum_service";
+
+import "workload_service.proto";
+import "priority_history_service.proto";
+import "department_service.proto";
+import "developer_service.proto";
